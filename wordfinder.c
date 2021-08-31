@@ -66,7 +66,7 @@ void printLineData(lineData lineData){
 }
 
 void printData(Data data){
-	printf("Found \"%s\" in %d lines:\n", data.name, data.lines);
+	printf("Found \"%s\" in %d line%s:\n", data.name, data.lines, (data.lines>1)?"s":"");
 	for(int i = 0; i < data.lines; i++){
 		printf("\t-At line %d:\n", data.lineList[i].lineNumber);
 		printLineData(data.lineList[i]);
