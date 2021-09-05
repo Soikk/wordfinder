@@ -39,7 +39,7 @@ Data *createData(char *name, int lines, lineData *lineList){
 	return newData;
 }
 
-dataNode * createNode(Data *data, dataNode *next){
+dataNode *createNode(Data *data, dataNode *next){
 	dataNode *newNode = malloc(sizeof(dataNode));
 	newNode->data = data;
 	newNode->next = next;
