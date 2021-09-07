@@ -59,27 +59,32 @@ void addNode(dataHead *head, Data *data){
 	}
 }
 
-void printLineData(lineData lineData){
+int printLineData(lineData lineData){
 	for(int i = 0; i < lineData.occurrences; i++){
 		printf("\t\t-At position %d\n", lineData.positionList[i]);
 	}
+	return lineData.occurrences;
 }
 
-void printData(Data data){
+int printData(Data data){
+	int count = 0;
 	printf("Found \"%s\" in %d line%s:\n", data.name, data.lines, (data.lines>1)?"s":"");
 	for(int i = 0; i < data.lines; i++){
 		printf("\t-At line %d:\n", data.lineList[i].lineNumber);
-		printLineData(data.lineList[i]);
+		count += printLineData(data.lineList[i]);
 	}
+	return count;
 }
 
-void printNodes(dataHead head){
+int printNodes(dataHead head){
+	int count = 0;
 	dataNode *node = head;
 	while(node){
-		printData(*node->data);
+		count += printData(*node->data);
 		node = node->next;
 	}
 	free(node);
+	return count;
 }
 
 size_t getLineCount(FILE *fp){
@@ -117,8 +122,8 @@ int main(int argc, char **argv){
 	char *docName = argv[1], *listName = argv[2];
 	
 	FILE *document = fopen(docName, "r"), *list = fopen(listName, "r");
-	if(!document) printf("Error: \"%s\" not found\n", document);
-	if(!list) printf("Error: \"%s\" not found\n", list);
+	if(!document) printf("Error: \"%s\" not found\n", docName);
+	if(!list) printf("Error: \"%s\" not found\n", listName);
 	if(!document || !list){
 		return 0;
 	}
@@ -154,7 +159,7 @@ int main(int argc, char **argv){
 			addNode(&head, data);
 		}
 	}
-	printNodes(head);
+	printf("\n%d total occurrences found\n", printNodes(head));
 
 	free(head);
 	free(fdocument);
