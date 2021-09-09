@@ -117,7 +117,8 @@ char **fileToLineArray(FILE *fp, int *fileLines){
 
 int main(int argc, char **argv){
 	if(argc < 3){
-		return printf("Usage : wordfinder <document> <list>");
+		printf("Usage : wordfinder <document> <list>");
+		return 0;
 	}
 	char *docName = argv[1], *listName = argv[2];
 	
